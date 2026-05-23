@@ -1,37 +1,11 @@
-/* Timeline sequence: горы-горы-горы-пиво-горы-горы-пиво-горы-пиво-пиво-пиво-пиво-горы-пиво-пиво-горы */
-const SEQUENCE = [
-  { type: "mountain", label: "Выезд из дома", time: "Пт 18:00" },
-  { type: "mountain", label: "Дорога — «ещё 2 часа до свободы»", time: "Пт 20:00" },
-  { type: "mountain", label: "Заезд. Вид на Татры. Ого.", time: "Пт 22:00" },
-  { type: "beer", label: "Первое «заслуженное» в Krupówki", time: "Пт 22:30" },
-  { type: "mountain", label: "Сон. Сны о вершинах.", time: "Сб 07:00" },
-  { type: "mountain", label: "Хайк. Ноги: «зачем?»", time: "Сб 09:00" },
-  { type: "beer", label: "Привал. Одно. Может два.", time: "Сб 12:00" },
-  { type: "mountain", label: "Ещё тропа — «размять пиво»", time: "Сб 14:00" },
-  { type: "beer", label: "Паб. Основная программа.", time: "Сб 17:00" },
-  { type: "beer", label: "Пиво. Пиво. Пиво.", time: "Сб 20:00" },
-  { type: "beer", label: "«Горы где?» — неважно", time: "Сб 22:00" },
-  { type: "beer", label: "Караоке? Нет. Ещё пиво.", time: "Сб 23:30" },
-  { type: "mountain", label: "Утро. Горы. Почему так ярко.", time: "Вс 08:00" },
-  { type: "beer", label: "Лечебное. Hair of the dog.", time: "Вс 09:30" },
-  { type: "beer", label: "Прощальный крафт", time: "Вс 11:00" },
-  { type: "mountain", label: "Обратно к семье. Легенды расскажем.", time: "Вс 14:00" },
-];
-
 const RATIO_STEPS = [
-  { mountains: 100, beer: 0, caption: "Старт: 100% гор, 0% пива. Честно." },
-  { mountains: 85, beer: 15, caption: "Первое пиво — «только одно»" },
-  { mountains: 70, beer: 30, caption: "Горы ещё доминируют. Пока." },
-  { mountains: 55, beer: 45, caption: "Баланс нарушен. Нам нравится." },
-  { mountains: 40, beer: 60, caption: "Пиво обгоняет. Физика не спасёт." },
-  { mountains: 30, beer: 70, caption: "Горы — декоративный элемент." },
-  { mountains: 20, beer: 80, caption: "Пиво-пиво-пиво. Классика." },
-  { mountains: 35, beer: 65, caption: "Похмелье: горы вернулись. Ненадолго." },
-  { mountains: 15, beer: 85, caption: "Лечебное пиво — наука." },
-  { mountains: 25, beer: 75, caption: "Финал: горы на прощание, пиво в сердце." },
+  { mountains: 55, beer: 45, caption: "Сначала приехали за вершинами. Потом за пеной." },
+  { mountains: 45, beer: 55, caption: "Баланс шаткий. Нам нравится." },
+  { mountains: 35, beer: 65, caption: "Горы — декоративный элемент." },
+  { mountains: 25, beer: 75, caption: "Пиво-пиво-пиво. Классика." },
+  { mountains: 30, beer: 70, caption: "Ещё разок на горы? Может быть." },
 ];
 
-// Ambient particles
 function initParticles() {
   const snow = document.querySelector(".snow");
   const bubbles = document.querySelector(".beer-bubbles");
@@ -54,33 +28,7 @@ function initParticles() {
   }
 }
 
-// Timeline
-function buildTimeline() {
-  const track = document.getElementById("slidesTrack");
-  const dots = document.getElementById("slideDots");
-  SEQUENCE.forEach((item, i) => {
-    const el = document.createElement("div");
-    el.className = `timeline-item ${item.type}`;
-    el.dataset.index = i;
-    el.innerHTML = `
-      <span class="emoji">${item.type === "mountain" ? "🏔️" : "🍺"}</span>
-      <span class="label">${item.label}</span>
-      <span class="time">${item.time}</span>
-    `;
-    track.appendChild(el);
-
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = item.type === "beer" ? "beer-dot" : "";
-    dot.setAttribute("aria-label", `Шаг ${i + 1}`);
-    dot.addEventListener("click", () => goToSlide(i));
-    dots.appendChild(dot);
-  });
-}
-
-// Intersection observers
 function initObservers() {
-  const timelineItems = document.querySelectorAll(".timeline-item");
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -89,16 +37,20 @@ function initObservers() {
     },
     { threshold: 0.2 }
   );
-  timelineItems.forEach((el) => io.observe(el));
 
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
   const ratioSection = document.getElementById("ratio");
   let ratioIndex = 0;
+  let ratioStarted = false;
+
   const ratioIO = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) animateRatio();
+        if (e.isIntersecting && !ratioStarted) {
+          ratioStarted = true;
+          animateRatio();
+        }
       });
     },
     { threshold: 0.3 }
@@ -114,24 +66,23 @@ function initObservers() {
     if (step.beer > 50) document.body.classList.add("beer-mode");
     ratioIndex++;
     if (ratioIndex < RATIO_STEPS.length) {
-      setTimeout(animateRatio, 1200);
+      setTimeout(animateRatio, 1400);
     }
   }
 }
 
-// Carousel
 let currentSlide = 0;
 const slides = () => document.querySelectorAll(".carousel-slide");
-const dots = () => document.querySelectorAll(".slide-dots button");
 
 function updateBeerMode() {
-  const active = slides()[currentSlide];
   const beerCount = [...slides()].slice(0, currentSlide + 1).filter(
     (s) => s.dataset.type === "beer"
   ).length;
-  const total = currentSlide + 1;
-  if (beerCount / total > 0.5) document.body.classList.add("beer-mode");
-  else document.body.classList.remove("beer-mode");
+  if (beerCount / (currentSlide + 1) > 0.45) {
+    document.body.classList.add("beer-mode");
+  } else {
+    document.body.classList.remove("beer-mode");
+  }
 }
 
 function goToSlide(index) {
@@ -139,7 +90,6 @@ function goToSlide(index) {
   const n = list.length;
   currentSlide = ((index % n) + n) % n;
   list.forEach((s, i) => s.classList.toggle("active", i === currentSlide));
-  dots().forEach((d, i) => d.classList.toggle("active", i === currentSlide));
   document.getElementById("slideCounter").textContent = `${currentSlide + 1} / ${n}`;
   updateBeerMode();
 }
@@ -158,19 +108,18 @@ function startAutoplay() {
   autoplayTimer = setInterval(nextSlide, 4500);
 }
 
-// RSVP
 function initRsvp() {
   const result = document.getElementById("rsvpResult");
   document.getElementById("btnYes").addEventListener("click", () => {
     result.hidden = false;
-    result.textContent = "🍺 БРАТАН, ТЫ В СПИСКЕ! Жди координаты в чате.";
+    result.textContent = "🏔️ БРАТАН, ТЫ В СПИСКЕ! Детали — когда-нибудь в чате.";
     spawnConfetti(["🍺", "🏔️", "🎉", "🥾", "🍻"]);
     document.body.classList.add("beer-mode");
   });
   document.getElementById("btnMaybe").addEventListener("click", () => {
     result.hidden = false;
     result.textContent =
-      "Жена сказала «нет»? Классика. Напиши «КОТЕЛЬНИЦА» тайно из туалета.";
+      "Реальность сопротивляется? Кинь «ГОРЫ» тайком — мы поймём.";
   });
 }
 
@@ -187,7 +136,6 @@ function spawnConfetti(icons) {
   }
 }
 
-// Scroll-driven parallax on hero
 window.addEventListener(
   "scroll",
   () => {
@@ -213,7 +161,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 initParticles();
-buildTimeline();
 initObservers();
 goToSlide(0);
 startAutoplay();

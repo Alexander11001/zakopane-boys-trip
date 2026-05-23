@@ -255,7 +255,9 @@ body.beer-mode .beer-bubbles span {
 }
 
 .ratio-section h2,
-.timeline h2,
+.vibe h2,
+.gallery-section h2,
+.rules h2,
 .rsvp h2 {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 3.5rem);
@@ -316,75 +318,85 @@ body.beer-mode .beer-bubbles span {
   min-height: 1.5em;
 }
 
-/* ─── Timeline slides ─── */
-.timeline {
-  padding: 6rem 0 3rem;
+/* ─── Marquee ─── */
+.marquee-wrap {
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--accent-mountain), var(--accent-beer));
+  padding: 0.85rem 0;
+  border-block: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.slides-track {
+.marquee {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 700px;
-  margin: 0 auto;
+  gap: 2rem;
+  width: max-content;
+  animation: marquee 28s linear infinite;
 }
 
-.timeline-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
+.marquee span {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--bg-dark);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── Vibe cards ─── */
+.vibe {
+  padding: 6rem 0 4rem;
+}
+
+.vibe-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.vibe-card {
   background: var(--bg-card);
-  border-radius: 14px;
-  border-left: 4px solid var(--accent-mountain);
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.5s, transform 0.5s, border-color 0.3s, background 0.3s;
+  border-radius: 18px;
+  padding: 2rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
 }
 
-.timeline-item.visible {
-  opacity: 1;
-  transform: translateX(0);
+.vibe-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-mountain);
+  box-shadow: 0 20px 50px rgba(78, 205, 196, 0.12);
 }
 
-.timeline-item.beer {
-  border-left-color: var(--accent-beer);
-  background: linear-gradient(90deg, rgba(244, 162, 97, 0.08), var(--bg-card));
+.vibe-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent-gold);
+  opacity: 0.5;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.75rem;
 }
 
-.timeline-item .emoji {
-  font-size: 2rem;
-  flex-shrink: 0;
-  animation: wiggle 2s ease-in-out infinite;
+.vibe-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
 }
 
-.timeline-item.beer .emoji {
-  animation: wiggleBeer 0.6s ease-in-out infinite;
-}
-
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-}
-
-@keyframes wiggleBeer {
-  0%, 100% { transform: rotate(-8deg) scale(1.1); }
-  50% { transform: rotate(8deg) scale(1.15); }
-}
-
-.timeline-item .label {
-  font-weight: 600;
-}
-
-.timeline-item .time {
-  margin-left: auto;
-  font-size: 0.8rem;
+.vibe-card p {
   color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 /* ─── Carousel ─── */
-.carousel-section {
-  padding: 2rem 0 6rem;
+.gallery-section {
+  padding: 2rem 0 5rem;
 }
 
 .carousel {
@@ -472,32 +484,36 @@ body.beer-mode .beer-bubbles span {
   text-align: center;
 }
 
-.slide-dots {
+/* ─── Rules ─── */
+.rules {
+  padding: 3rem 0 5rem;
+  background: var(--bg-card);
+}
+
+.rules-list {
+  list-style: none;
+  max-width: 640px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.slide-dots button {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: #334155;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.2s, background 0.2s;
+.rules-list li {
+  padding: 1.1rem 1.25rem 1.1rem 2.75rem;
+  background: var(--bg-dark);
+  border-radius: 12px;
+  border-left: 3px solid var(--accent-mountain);
+  position: relative;
+  font-weight: 600;
 }
 
-.slide-dots button.active {
-  background: var(--accent-mountain);
-  transform: scale(1.3);
-}
-
-.slide-dots button.beer-dot.active {
-  background: var(--accent-beer);
+.rules-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 1rem;
+  color: var(--accent-mountain);
+  font-weight: 800;
 }
 
 /* ─── Facts ─── */
