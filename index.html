@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Пойдём в горы: 3–4 скуфа, старые друзья, без детей и с юмором." />
+  <meta name="description" content="Пойдём в горы — скуфы, хорошая компания, хайк и пиво в Закопане." />
   <title>Пойдём в горы — ребята, без плана</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,24 +11,30 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="mesh-bg" aria-hidden="true"></div>
   <div class="beer-bubbles" aria-hidden="true"></div>
   <div class="snow" aria-hidden="true"></div>
 
   <header class="hero" id="top">
-    <nav class="nav">
-      <span class="logo">🏔️🍺</span>
-      <a href="#vibe">Зачем</a>
-      <a href="#rsvp">Я в деле</a>
+    <nav class="nav" id="nav">
+      <span class="logo float-emoji">🏔️🍺</span>
+      <div class="nav-links">
+        <a href="#vibe">Зачем</a>
+        <a href="#rsvp">Я в деле</a>
+      </div>
     </nav>
     <div class="hero-bg"></div>
+    <div class="hero-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="hero-content">
-      <p class="badge">скуфы · мужики · без семейной программы</p>
-      <h1>Пойдём,<br /><span>ребята, в горы</span></h1>
+      <p class="badge pulse-badge">скуфы · хорошая компания · без семейной программы</p>
+      <h1>Пойдём,<br /><span class="gradient-text">ребята, в горы</span></h1>
       <p class="hero-sub">
-        3–4 скуфа. Старые друзья. Хайк, воздух, тишина… и где-то по дороге пиво.
+        Хорошая компания. Хайк, воздух, тишина… и где-то по дороге пиво.
         Без расписания. Без Excel. Просто вырваться и оторваться.
       </p>
-      <a class="btn btn-primary" href="#rsvp">Я с вами</a>
+      <a class="btn btn-primary magnetic" href="#rsvp">Я с вами</a>
     </div>
     <div class="scroll-hint">
       <span>Листай вниз — там красота и глупости</span>
@@ -51,22 +57,22 @@
 
   <section class="vibe" id="vibe">
     <div class="container">
-      <h2>Короче, суть такая</h2>
+      <h2 class="section-title">Короче, суть такая</h2>
       <p class="section-lead">
-        Едут 3–4 человека — старые друзья-скуфы. Никто не знает, что будет через три часа. И это прекрасно.
+        Хорошая компания. Никто не знает, что будет через три часа. И это прекрасно.
       </p>
       <div class="vibe-cards">
-        <article class="vibe-card reveal">
+        <article class="vibe-card tilt-card reveal" data-delay="0">
           <span class="vibe-num">01</span>
           <h3>Горы</h3>
-          <p>Красиво. Дышится. Фото на аватарку жене — «смотри, как я страдаю ради семьи».</p>
+          <p>Красиво. Дышится. Фото на аватарку — «смотри, как я страдаю ради дела».</p>
         </article>
-        <article class="vibe-card reveal">
+        <article class="vibe-card tilt-card reveal" data-delay="120">
           <span class="vibe-num">02</span>
           <h3>Скуфы</h3>
-          <p>3–4 человека. Старые друзья. С которыми можно молчать на тропе и орать «на здоровье» вечером.</p>
+          <p>Свои люди. С которыми можно молчать на тропе и орать «на здоровье» вечером.</p>
         </article>
-        <article class="vibe-card reveal">
+        <article class="vibe-card tilt-card reveal" data-delay="240">
           <span class="vibe-num">03</span>
           <h3>Пиво</h3>
           <p>Не главная цель. Просто… ну вы поняли. Горы-горы-горы, а потом внезапно пиво.</p>
@@ -76,8 +82,8 @@
   </section>
 
   <section class="ratio-section" id="ratio">
-    <div class="container">
-      <h2>Наука не подтверждает, мы — да</h2>
+    <div class="container glass-panel">
+      <h2 class="section-title">Наука не подтверждает, мы — да</h2>
       <p class="section-lead">
         Примерный баланс поездки. Точных цифр нет — и не нужно.
       </p>
@@ -97,20 +103,21 @@
 
   <section class="gallery-section">
     <div class="container">
-      <h2>Настроение поездки</h2>
-      <p class="section-lead">Так это выглядит в голове, когда 3–4 старых друга едут в горы.</p>
+      <h2 class="section-title">Настроение поездки</h2>
+      <p class="section-lead">Так это выглядит в голове, когда хорошая компания едет в горы.</p>
     </div>
-    <div class="carousel" id="carousel">
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel">
       <div class="carousel-slide active" data-type="mountain">
-        <img src="images/mountain-1.jpg" alt="Татры на рассвете" loading="lazy" width="1600" height="1000" />
+        <img src="images/mountain-1.jpg" alt="Снежные вершины Татр" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Ребят, сюда! Тут реально красиво!»</div>
       </div>
       <div class="carousel-slide" data-type="mountain">
-        <img src="images/mountain-2.jpg" alt="Горный хребет" loading="lazy" width="1600" height="1000" />
+        <img src="images/mountain-2.jpg" alt="Горный хребет над облаками" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Ещё чуть-чуть и привал» (уже третий раз)</div>
       </div>
       <div class="carousel-slide" data-type="mountain">
-        <img src="images/mountain-3.jpg" alt="Панорама гор" loading="lazy" width="1600" height="1000" />
+        <img src="images/mountain-3.jpg" alt="Панорама гор над облаками" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Ноги горят, душа поёт»</div>
       </div>
       <div class="carousel-slide" data-type="beer">
@@ -118,38 +125,38 @@
         <div class="carousel-caption">«Ну одно, заслужили»</div>
       </div>
       <div class="carousel-slide" data-type="mountain">
-        <img src="images/mountain-4.jpg" alt="Тропа в горах" loading="lazy" width="1600" height="1000" />
+        <img src="images/mountain-4.jpg" alt="Хайк по горной тропе" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Размяться между… эээ… привалами»</div>
       </div>
       <div class="carousel-slide" data-type="beer">
-        <img src="images/beer-2.jpg" alt="Кружки пива" loading="lazy" width="1600" height="1000" />
+        <img src="images/beer-2.jpg" alt="Наливают пиво в бокал" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Вот ради этого мы и шли» (лол, нет)</div>
       </div>
       <div class="carousel-slide" data-type="beer">
-        <img src="images/beer-3.jpg" alt="Пиво и друзья" loading="lazy" width="1600" height="1000" />
+        <img src="images/beer-3.jpg" alt="Пиво в горном пабе" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Горы? Какие горы? Мы тут давно»</div>
       </div>
       <div class="carousel-slide" data-type="mountain">
         <img src="images/mountain-5.jpg" alt="Прощание с горами" loading="lazy" width="1600" height="1000" />
         <div class="carousel-caption">«Ещё разок. Обещаем. Может быть.»</div>
       </div>
+      <div class="carousel-progress"><span id="carouselProgress"></span></div>
     </div>
     <div class="carousel-controls">
-      <button type="button" id="prevSlide" aria-label="Назад">←</button>
+      <button type="button" class="magnetic" id="prevSlide" aria-label="Назад">←</button>
       <span id="slideCounter">1 / 8</span>
-      <button type="button" id="nextSlide" aria-label="Вперёд">→</button>
+      <button type="button" class="magnetic" id="nextSlide" aria-label="Вперёд">→</button>
     </div>
   </section>
 
   <section class="rules">
     <div class="container">
-      <h2>Единственные правила</h2>
+      <h2 class="section-title">Единственные правила</h2>
       <ul class="rules-list">
-        <li class="reveal">Не тащить детей. Они и так герои каждый день.</li>
-        <li class="reveal">Не строить расписание. Живём по вайбу.</li>
-        <li class="reveal">Фото гор — в чат семьи. Остальное — в архив.</li>
-        <li class="reveal">Если кто-то говорит «последнее пиво» — никто не верит.</li>
-        <li class="reveal">Только скуфы. Тесная компания — 3–4 человека.</li>
+        <li class="reveal" data-delay="0">Не строить расписание. Живём по вайбу.</li>
+        <li class="reveal" data-delay="80">Фото гор — в чат. Остальное — в архив.</li>
+        <li class="reveal" data-delay="160">Если кто-то говорит «последнее пиво» — никто не верит.</li>
+        <li class="reveal" data-delay="240">Только скуфы. Хорошая компания — must have.</li>
       </ul>
     </div>
   </section>
@@ -157,9 +164,9 @@
   <section class="facts">
     <div class="container facts-grid">
       <article class="fact-card reveal">
-        <span class="fact-icon">👊</span>
-        <h3>Команда</h3>
-        <p>3–4 человека. Старые друзья. Меньше — скучно, больше — уже не скуф-trip.</p>
+        <span class="fact-icon">🤝</span>
+        <h3>Компания</h3>
+        <p>Свои люди. Хорошая компания. Без лишней суеты.</p>
       </article>
       <article class="fact-card reveal">
         <span class="fact-icon">🥾</span>
@@ -176,28 +183,23 @@
         <h3>Пиво</h3>
         <p>Żywiec, Warka и то крафтовое, что кто-то «случайно» найдёт.</p>
       </article>
-      <article class="fact-card reveal">
-        <span class="fact-icon">📵</span>
-        <h3>Телефон</h3>
-        <p>Режим «связь плохая в горах». Особенно когда звонит домой.</p>
-      </article>
     </div>
   </section>
 
   <section class="rsvp" id="rsvp">
-    <div class="container rsvp-inner">
-      <h2>Ну что, поехали?</h2>
-      <p>Мест немного — 3–4 скуфа. Кинь в чат: <strong>ГОРЫ</strong> — и ты в списке. Детали потом. Может быть.</p>
+    <div class="container rsvp-inner glow-border">
+      <h2 class="section-title">Ну что, поехали?</h2>
+      <p>Кинь в чат: <strong>ГОРЫ</strong> — и ты в списке. Детали потом. Может быть.</p>
       <div class="rsvp-buttons">
-        <button type="button" class="btn btn-yes" id="btnYes">ДА, Я С ВАМИ 🏔️</button>
-        <button type="button" class="btn btn-maybe" id="btnMaybe">Надо обсудить с реальностью...</button>
+        <button type="button" class="btn btn-yes magnetic" id="btnYes">ДА, Я С ВАМИ 🏔️</button>
+        <button type="button" class="btn btn-maybe magnetic" id="btnMaybe">Надо обсудить с реальностью...</button>
       </div>
       <p class="rsvp-result" id="rsvpResult" hidden></p>
     </div>
   </section>
 
   <footer>
-    <p>Пойдём в горы · 3–4 скуфа · старые друзья · Закопане</p>
+    <p>Пойдём в горы · хорошая компания · Закопане</p>
     <p class="footer-seq">горы → горы → горы → пиво → ... → ещё разок</p>
   </footer>
 
